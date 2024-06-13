@@ -209,15 +209,6 @@
       "sharedPost": [],
       "likedPost": [],
       "img_url": "./images/user (6).jfif"
-    },
-    {
-      "id": "4adc",
-      "name": "lang tien",
-      "email": "langtienk4@gmail.com",
-      "img_url": "https://assetsio.reedpopcdn.com/Avatar-the-last-airbender-aang.jpg?width=1200&height=900&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
-      "username": "langtienk4",
-      "password": "123456",
-      "remember": true
     }
   ],
   "posts": [
