@@ -11,6 +11,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import useSWR from "swr";
 import { FollowAction, UnFollowAction } from "./serverAction/followAction";
+import { swrConfig } from "@/constant/swr.config";
 
 const Guest = ({
   user,
@@ -27,15 +28,17 @@ const Guest = ({
   const router = useRouter();
   const handleFollow = async () => {
     if (!isLogin) router.push("/");
-    dispatch(FOLLOW(user.id));
-    const res = await FollowAction(auth, user.id);
-    console.log(res);
+    else {
+      const res = await FollowAction(auth, user.id);
+      dispatch(FOLLOW(user.id));
+    }
   };
   const handleUnFollow = async () => {
     if (!isLogin) router.push("/");
-    dispatch(UNFOLLOW(user.id));
-    const res = await UnFollowAction(auth, user.id);
-    console.log(res);
+    else {
+      const res = await UnFollowAction(auth, user.id);
+      dispatch(UNFOLLOW(user.id));
+    }
   };
   return (
     <div className="flex gap-3 items-center">
@@ -80,7 +83,11 @@ const UserItem = ({ id, dot }: { id?: string; dot?: boolean }) => {
   const auth: IUser = useSelector((state: IStore) => state.user);
   let isAuth: boolean = auth.id === id;
   const fetcher = (url: string) => fetch(url).then((r) => r.json());
-  const { data, error, isLoading } = useSWR(`${baseURL}users/${id}`, fetcher);
+  const { data, error, isLoading } = useSWR(
+    `${baseURL}users/${id}`,
+    fetcher,
+    swrConfig
+  );
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error...</p>;
   const user: IUser = data;

@@ -16,16 +16,22 @@
           "lng": "47.0653"
         }
       },
-      "follow": [],
+      "follow": [
+        "u007",
+        "u002",
+        "u006",
+        "u009"
+      ],
       "sharedPost": [
         "p001",
         "p002",
         "p003"
       ],
       "likedPost": [
-        "p001",
+        "p003",
+        "p010",
         "p002",
-        "p003"
+        "p001"
       ],
       "img_url": "./images/user (3).jfif"
     },
@@ -220,9 +226,14 @@
     },
     {
       "id": "u011",
-      "follow": [],
+      "follow": [
+        "u003",
+        "u009"
+      ],
       "sharedPost": [],
-      "likedPost": [],
+      "likedPost": [
+        "p001"
+      ],
       "name": "lang tien",
       "email": "langtienk4@gmail.com",
       "img_url": "https://i.pinimg.com/originals/11/d2/27/11d2272b9a2185b9b8e786050f8e6b67.jpg",
@@ -237,7 +248,7 @@
       "userId": "u009",
       "title": "tempora rem veritatis voluptas quo dolores vero",
       "body": "facere qui nesciunt est voluptatum voluptatem nisi\nsequi eligendi necessitatibus ea at rerum itaque\nharum non ratione velit laboriosam quis consequuntur\nex officiis minima doloremque voluptas ut aut",
-      "like": 10,
+      "like": 11,
       "share": 21,
       "img_url": "./images/post (9).jfif"
     },
@@ -300,7 +311,7 @@
       "userId": "u004",
       "title": "id nihil consequatur molestias animi provident",
       "body": "nisi error delectus possimus ut eligendi vitae\nplaceat eos harum cupiditate facilis reprehenderit voluptatem beatae\nmodi ducimus quo illum voluptas eligendi\net nobis quia fugit",
-      "like": 12,
+      "like": 13,
       "share": 26,
       "img_url": "./images/post (6).jfif"
     },
