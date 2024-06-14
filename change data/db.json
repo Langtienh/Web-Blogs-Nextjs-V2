@@ -16,7 +16,7 @@
           "lng": "47.0653"
         }
       },
-      "follow": [],
+      "flower": [],
       "sharedPost": [],
       "likedPost": [],
       "img_url": "./images/user (3).jfif"
@@ -37,7 +37,7 @@
           "lng": "-164.2990"
         }
       },
-      "follow": [],
+      "flower": [],
       "sharedPost": [],
       "likedPost": [],
       "img_url": "./images/user (4).jfif"
@@ -58,7 +58,7 @@
           "lng": "-168.8889"
         }
       },
-      "follow": [],
+      "flower": [],
       "sharedPost": [],
       "likedPost": [],
       "img_url": "./images/user (9).jfif"
@@ -79,7 +79,7 @@
           "lng": "21.8984"
         }
       },
-      "follow": [],
+      "flower": [],
       "sharedPost": [],
       "likedPost": [],
       "img_url": "./images/user (7).jfif"
@@ -100,7 +100,7 @@
           "lng": "81.1496"
         }
       },
-      "follow": [],
+      "flower": [],
       "sharedPost": [],
       "likedPost": [],
       "img_url": "./images/user (1).jfif"
@@ -121,7 +121,7 @@
           "lng": "57.2232"
         }
       },
-      "follow": [],
+      "flower": [],
       "sharedPost": [],
       "likedPost": [],
       "img_url": "./images/user (10).jfif"
@@ -142,7 +142,7 @@
           "lng": "-34.4618"
         }
       },
-      "follow": [],
+      "flower": [],
       "sharedPost": [],
       "likedPost": [],
       "img_url": "./images/user (2).jfif"
@@ -163,7 +163,7 @@
           "lng": "-120.7677"
         }
       },
-      "follow": [],
+      "flower": [],
       "sharedPost": [],
       "likedPost": [],
       "img_url": "./images/user (8).jfif"
@@ -184,7 +184,7 @@
           "lng": "62.5342"
         }
       },
-      "follow": [],
+      "flower": [],
       "sharedPost": [],
       "likedPost": [],
       "img_url": "./images/user (5).jfif"
@@ -205,14 +205,14 @@
           "lng": "71.7478"
         }
       },
-      "follow": [],
+      "flower": [],
       "sharedPost": [],
       "likedPost": [],
       "img_url": "./images/user (6).jfif"
     },
     {
       "id": "u011",
-      "follow": [],
+      "flower": [],
       "sharedPost": [],
       "likedPost": [],
       "name": "lang tien",
@@ -6328,107 +6328,5 @@
       "title": "ipsam aperiam voluptates qui",
       "completed": false
     }
-  ],
-  "postsList": [
-    { "id": "p001" },
-    { "id": "p002" },
-    { "id": "p003" },
-    { "id": "p004" },
-    { "id": "p005" },
-    { "id": "p006" },
-    { "id": "p007" },
-    { "id": "p008" },
-    { "id": "p009" },
-    { "id": "p010" },
-    { "id": "p011" },
-    { "id": "p012" },
-    { "id": "p013" },
-    { "id": "p014" },
-    { "id": "p015" },
-    { "id": "p016" },
-    { "id": "p017" },
-    { "id": "p018" },
-    { "id": "p019" },
-    { "id": "p020" },
-    { "id": "p021" },
-    { "id": "p022" },
-    { "id": "p023" },
-    { "id": "p024" },
-    { "id": "p025" },
-    { "id": "p026" },
-    { "id": "p027" },
-    { "id": "p028" },
-    { "id": "p029" },
-    { "id": "p030" },
-    { "id": "p031" },
-    { "id": "p032" },
-    { "id": "p033" },
-    { "id": "p034" },
-    { "id": "p035" },
-    { "id": "p036" },
-    { "id": "p037" },
-    { "id": "p038" },
-    { "id": "p039" },
-    { "id": "p040" },
-    { "id": "p041" },
-    { "id": "p042" },
-    { "id": "p043" },
-    { "id": "p044" },
-    { "id": "p045" },
-    { "id": "p046" },
-    { "id": "p047" },
-    { "id": "p048" },
-    { "id": "p049" },
-    { "id": "p050" },
-    { "id": "p051" },
-    { "id": "p052" },
-    { "id": "p053" },
-    { "id": "p054" },
-    { "id": "p055" },
-    { "id": "p056" },
-    { "id": "p057" },
-    { "id": "p058" },
-    { "id": "p059" },
-    { "id": "p060" },
-    { "id": "p061" },
-    { "id": "p062" },
-    { "id": "p063" },
-    { "id": "p064" },
-    { "id": "p065" },
-    { "id": "p066" },
-    { "id": "p067" },
-    { "id": "p068" },
-    { "id": "p069" },
-    { "id": "p070" },
-    { "id": "p071" },
-    { "id": "p072" },
-    { "id": "p073" },
-    { "id": "p074" },
-    { "id": "p075" },
-    { "id": "p076" },
-    { "id": "p077" },
-    { "id": "p078" },
-    { "id": "p079" },
-    { "id": "p080" },
-    { "id": "p081" },
-    { "id": "p082" },
-    { "id": "p083" },
-    { "id": "p084" },
-    { "id": "p085" },
-    { "id": "p086" },
-    { "id": "p087" },
-    { "id": "p088" },
-    { "id": "p089" },
-    { "id": "p090" },
-    { "id": "p091" },
-    { "id": "p092" },
-    { "id": "p093" },
-    { "id": "p094" },
-    { "id": "p095" },
-    { "id": "p096" },
-    { "id": "p097" },
-    { "id": "p098" },
-    { "id": "p099" },
-    { "id": "p100" }
   ]
 }

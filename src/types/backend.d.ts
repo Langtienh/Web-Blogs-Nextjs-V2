@@ -14,7 +14,7 @@ export interface IUser {
   username: string;
   password: string;
   email: string;
-  flower: string[];
+  follow: string[];
   sharedPost: string[];
   likedPost: string[];
   img_url: string;

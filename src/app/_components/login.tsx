@@ -16,8 +16,8 @@ const Login = ({ cb }: { cb: () => void }) => {
   const onFinish: FormProps<LoginType>["onFinish"] = async (values) => {
     const res = await checkLogin(values.username, values.password);
     if (res) {
-      const user = await getUser(values.username);
-      dispatch(LOGIN(user));
+      const data = await getUser(values.username);
+      dispatch(LOGIN(data[0]));
       Swal.fire({
         icon: "success",
         title: "Go to home after 3 seconds ",

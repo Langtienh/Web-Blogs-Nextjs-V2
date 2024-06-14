@@ -5,14 +5,12 @@ import type { FormProps } from "antd";
 import { Button, Checkbox, Form, Input } from "antd";
 import { checkSignup, addUser } from "@/app/_components/checkSignup";
 import Swal from "sweetalert2";
-import { useRouter } from "next/navigation";
 import { SignupType } from "@/types/antd";
 
 const img_url_default =
-  "https://assetsio.reedpopcdn.com/Avatar-the-last-airbender-aang.jpg?width=1200&height=900&fit=crop&quality=100&format=png&enable=upscale&auto=webp";
+  "https://i.pinimg.com/originals/11/d2/27/11d2272b9a2185b9b8e786050f8e6b67.jpg";
 
 const Signup = ({ cb }: { cb: () => void }) => {
-  const router = useRouter();
   const onFinish: FormProps<SignupType>["onFinish"] = async (values) => {
     const res: boolean = await checkSignup(values.email, values.username);
     if (res) {

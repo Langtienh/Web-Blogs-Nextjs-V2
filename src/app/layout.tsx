@@ -15,6 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="./images/webicon/blogs.ico" />
+      </head>
       <body>
         <AntdRegistry>
           <ReduxProvider>{children}</ReduxProvider>
