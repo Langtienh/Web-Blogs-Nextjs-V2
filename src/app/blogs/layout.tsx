@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import Header from "@/app/blogs/_components/header";
-import FolowsList from "@/app/blogs/_components/folows.list";
-import LikeShareList from "@/app/blogs/_components/LikeShare.list";
+import Header from "@/components/blogs/header";
+import FolowsList from "@/components/blogs/user.list";
+import LikeShareList from "@/components/blogs/right";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export const metadata: Metadata = {
   title: "Blog | NextJs",
@@ -14,24 +16,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="bg-[#f0f2f5]">
-      <Header />
-      <div className="flex">
-        <div className="left-0 fixed top-0 bottom-0 w-[280px] hidden left:block bg-slate-200">
-          <div className="h-14"></div>
-          <FolowsList />
+    <Suspense fallback={<Loading />}>
+      <main>
+        <Header />
+        <div className="flex">
+          <div className="left-0 fixed top-0 bottom-0 w-[280px] hidden left:block overflow-y-scroll">
+            <div className="h-14"></div>
+            <FolowsList />
+          </div>
+          <div className="w-[280px] hidden left:block"></div>
+          <div className="flex-1">
+            <div className="h-14"></div>
+            {children}
+          </div>
+          <div className="w-[280px] hidden right:block"></div>
+          <div className="right-0 fixed top-0 bottom-0 w-[280px] hidden right:block overflow-y-scroll">
+            <div className="h-14"></div>
+            <LikeShareList />
+          </div>
         </div>
-        <div className="w-[280px] hidden left:block"></div>
-        <div className="flex-1">
-          <div className="h-14"></div>
-          {children}
-        </div>
-        <div className="w-[280px] hidden right:block"></div>
-        <div className="right-0 fixed top-0 bottom-0 w-[280px] hidden right:block bg-slate-200">
-          <div className="h-14"></div>
-          <LikeShareList />
-        </div>
-      </div>
-    </main>
+      </main>
+    </Suspense>
   );
 }

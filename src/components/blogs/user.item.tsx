@@ -10,8 +10,9 @@ import { useRouter } from "next/navigation";
 import { BsThreeDots } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import useSWR from "swr";
-import { FollowAction, UnFollowAction } from "./serverAction/followAction";
+import { FollowAction, UnFollowAction } from "@/actions/post/followAction";
 import { swrConfig } from "@/constant/swr.config";
+import { RiUserUnfollowFill } from "react-icons/ri";
 
 const Guest = ({
   user,
@@ -42,13 +43,18 @@ const Guest = ({
   };
   return (
     <div className="flex gap-3 items-center">
-      <img className="h-10 w-10 rounded-full" src={user.img_url} alt="avatar" />
+      <img className="h-9 w-9 rounded-full" src={user.img_url} alt="avatar" />
       <div className="font-bold">
         <div className="flex gap-2">
-          <h2>{user.username}</h2>
+          <h2 className="text-[15px]">{user.username}</h2>
           {isfollow ? (
-            <Button onClick={() => handleUnFollow()} size="small">
-              <div className="font-bold text-red-500">UnFollow</div>
+            <Button
+              type="text"
+              onClick={() => handleUnFollow()}
+              size="small"
+              danger
+            >
+              <RiUserUnfollowFill />
             </Button>
           ) : (
             <Button onClick={() => handleFollow()} size="small">
@@ -56,7 +62,7 @@ const Guest = ({
             </Button>
           )}
         </div>
-        <h2 className="text-gray-700 text-sm">{user.email}</h2>
+        <h2 className="text-gray-700 text-[13px]">{user.email}</h2>
       </div>
       {dot && (
         <div className="ms-auto">
@@ -70,10 +76,10 @@ const Guest = ({
 const Auth = ({ user }: { user: IUser }) => {
   return (
     <div className="flex gap-3">
-      <img className="h-10 w-10 rounded-full" src={user.img_url} alt="avatar" />
+      <img className="h-9 w-9 rounded-full" src={user.img_url} alt="avatar" />
       <div className="font-bold">
-        <h2>{user.username}</h2>
-        <h2 className="text-gray-700 text-sm">{user.email}</h2>
+        <h2 className="text-[15px]">{user.username}</h2>
+        <h2 className="text-gray-700 text-[13px]">{user.email}</h2>
       </div>
     </div>
   );

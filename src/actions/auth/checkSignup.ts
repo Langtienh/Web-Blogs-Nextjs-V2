@@ -18,7 +18,7 @@ export const checkSignup = async (
 export const addUser = async (user: SignupType) => {
   const data = {
     id: newID(),
-    flower: [],
+    follow: [],
     sharedPost: [],
     likedPost: [],
     ...user,

@@ -14,11 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html className="scroll-smooth focus:scroll-smooth" lang="en">
       <head>
         <link rel="icon" href="./images/webicon/blogs.ico" />
       </head>
-      <body>
+      <body className="bg-[#f0f2f5]">
         <AntdRegistry>
           <ReduxProvider>{children}</ReduxProvider>
         </AntdRegistry>

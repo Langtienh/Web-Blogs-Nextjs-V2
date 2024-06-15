@@ -17,7 +17,7 @@ const userReducer = (state: IUser = initial, action: userAction) => {
   let newState = { ...state };
   let newFollow = newState.follow;
   let newLikedPost = newState.likedPost;
-  let newSharePost = newState.sharedPost;
+  let newSharedPost = newState.sharedPost;
   switch (action.type) {
     case "LOGIN":
       return action.user;
@@ -42,6 +42,16 @@ const userReducer = (state: IUser = initial, action: userAction) => {
         (likedPostId: string) => likedPostId !== action.postId
       );
       newState.likedPost = newLikedPost;
+      return newState;
+    case "SHARE":
+      newSharedPost.push(action.postId);
+      newState.sharedPost = newSharedPost;
+      return newState;
+    case "UNSHARE":
+      newSharedPost = newSharedPost.filter(
+        (likedPostId: string) => likedPostId !== action.postId
+      );
+      newState.sharedPost = newSharedPost;
       return newState;
     default:
       return state;
