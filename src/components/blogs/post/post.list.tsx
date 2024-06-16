@@ -2,10 +2,11 @@
 
 import { Pagination } from "antd";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import Post from "@/components/blogs/post.item";
+import Post from "@/components/blogs/post/post.item";
+import { IPost } from "@/types/backend";
 
 interface IProps2 {
-  data: { id: string }[];
+  data: IPost[];
   items: number;
   pageActive: number;
 }
@@ -19,7 +20,7 @@ const PostsList = ({ data, items, pageActive }: IProps2) => {
     params.set("page", page.toString());
     replace(`${patchName}?${params}`);
     window.scrollBy({
-      top: 100, // could be negative value
+      top: 100,
       left: 0,
       behavior: "smooth",
     });
@@ -27,22 +28,19 @@ const PostsList = ({ data, items, pageActive }: IProps2) => {
   };
   return (
     <>
-      <div className="w-full max-w-[516px] px-2 pt-5 mx-auto">
+      <div className="px-2">
         <ul className="flex gap-5 flex-col">
-          {!!data?.length &&
-            data.map((item: { id: string }) => {
-              return <Post key={item.id} id={item.id} />;
-            })}
+          {data.map((post: IPost) => {
+            return <Post key={post.id} post={post} />;
+          })}
         </ul>
         <div className="text-center mt-10 mb-20">
-          <a href="#top">
-            <Pagination
-              current={pageActive}
-              onChange={onChange}
-              total={items}
-              showSizeChanger={false}
-            />
-          </a>
+          <Pagination
+            current={pageActive}
+            onChange={onChange}
+            total={items}
+            showSizeChanger={false}
+          />
         </div>
       </div>
     </>

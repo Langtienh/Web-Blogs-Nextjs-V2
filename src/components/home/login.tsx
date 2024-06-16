@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { IoMdAddCircle } from "react-icons/io";
 import axios from "axios";
 import { baseURL } from "@/constant/constant";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
 const Login = ({ cb }: { cb: () => void }) => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const Login = ({ cb }: { cb: () => void }) => {
       dispatch(LOGIN(data[0]));
       Swal.fire({
         icon: "success",
-        title: "Go to home after 3 seconds ",
+        title: "Go to home after 3 seconds",
         showConfirmButton: false,
         timer: 3000,
       });
@@ -47,12 +48,12 @@ const Login = ({ cb }: { cb: () => void }) => {
     console.log("Failed:", errorInfo);
   };
   const demo = async () => {
-    const res = await axios.get(`${baseURL}users/u001`);
+    const res = await axios.get(`${baseURL}users/1718464000001`);
     const demoUser = res.data;
     dispatch(LOGIN(demoUser));
     Swal.fire({
       icon: "success",
-      title: "Go to home after 3 seconds ",
+      title: "Go to home after 3 seconds",
       showConfirmButton: false,
       timer: 3000,
     });
@@ -101,7 +102,8 @@ const Login = ({ cb }: { cb: () => void }) => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="on"
-            className="flex flex-col"
+            layout="vertical"
+            size="large"
           >
             <Form.Item<LoginType>
               name="username"
@@ -109,7 +111,10 @@ const Login = ({ cb }: { cb: () => void }) => {
                 { required: true, message: "Please input your username!" },
               ]}
             >
-              <Input size="large" placeholder="Username" />
+              <Input
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                placeholder="Username"
+              />
             </Form.Item>
             <Form.Item<LoginType>
               name="password"
@@ -117,18 +122,16 @@ const Login = ({ cb }: { cb: () => void }) => {
                 { required: true, message: "Please input your password!" },
               ]}
             >
-              <Input.Password size="large" placeholder="Password" />
+              <Input.Password
+                prefix={<LockOutlined className="site-form-item-icon" />}
+                placeholder="Password"
+              />
             </Form.Item>
             <Form.Item<LoginType> name="remember" valuePropName="checked">
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
             <Form.Item>
-              <Button
-                className="block w-full"
-                size="large"
-                type="primary"
-                htmlType="submit"
-              >
+              <Button className="block w-full" type="primary" htmlType="submit">
                 Login
               </Button>
             </Form.Item>
@@ -138,7 +141,6 @@ const Login = ({ cb }: { cb: () => void }) => {
             <div className="text-center">
               <Button
                 className="w-1/2 bg-green-600"
-                size="large"
                 type="primary"
                 danger
                 onClick={() => cb()}

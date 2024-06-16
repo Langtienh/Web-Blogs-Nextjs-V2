@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   FaBell,
+  FaEdit,
   FaFacebook,
   FaFacebookMessenger,
   FaHome,
@@ -16,7 +17,6 @@ import {
   FaUserFriends,
   FaVideo,
 } from "react-icons/fa";
-import { IoMdAdd } from "react-icons/io";
 import { MdMenu } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -53,21 +53,29 @@ const Header = () => {
               <FaHome size={30} />
             </Popover>
           </Link>
-          <Popover
-            placement="bottom"
-            content={<p className="text-red-500 font-bold">Create Blog</p>}
-          >
-            <IoMdAdd size={30} />
-          </Popover>
+          <Link href="/blogs/createblog">
+            <Popover
+              placement="bottom"
+              content={<p className="text-red-500 font-bold">Create a blog</p>}
+            >
+              <FaEdit size={30} />
+              {/* <IoMdAdd size={30} /> */}
+            </Popover>
+          </Link>
           <Popover placement="bottom" content="Nodata">
             <FaUserFriends size={30} className="hidden" />
           </Popover>
           <Popover placement="bottom" content="Nodata">
             <FaVideo size={30} className="hidden" />
           </Popover>
-          <Popover placement="bottom" content="Nodata">
-            <FaStore size={30} className="hidden" />
-          </Popover>
+          <Link href="/blogs/myblogs">
+            <Popover
+              placement="bottom"
+              content={<p className="text-red-500 font-bold">My Blogs</p>}
+            >
+              <FaStore size={30} className="" />
+            </Popover>
+          </Link>
           <Popover placement="bottom" content="Nodata">
             <MdMenu size={30} className="hidden" />
           </Popover>

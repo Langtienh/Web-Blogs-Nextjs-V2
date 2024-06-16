@@ -1,44 +1,40 @@
-export interface IPost {
+export type IPost = {
   id: string;
   userId: string;
   title: string;
   body: string;
-  like: number;
-  share: number;
   img_url: string;
-}
+};
 
-export interface IUser {
+export type IUser = {
   id: string;
   name: string;
   username: string;
   password: string;
   email: string;
-  follow: string[];
-  sharedPost: string[];
-  likedPost: string[];
   img_url: string;
-}
+};
 
-export interface INewUser {
-  name: string;
-  username: string;
-  password: string;
-  email: string;
-  flower: string[];
-  sharedPost: string[];
-  likedPost: string[];
-  img_url: string;
-}
-
-export interface IComment {
+export type IComment = {
   id: string;
   postId: string;
-  name: string;
-  email: string;
+  userId: string;
   body: string;
-}
+};
 
-export interface IPostList {
+export type IFollow = {
   id: string;
-}
+  userId: string;
+};
+
+export type ILiked = {
+  id: string;
+  userId: string;
+  postId: string;
+};
+
+export type Ishared = {
+  id: string;
+  userId: string;
+  postId: string;
+};

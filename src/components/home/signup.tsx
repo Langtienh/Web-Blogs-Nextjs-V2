@@ -6,6 +6,7 @@ import { Button, Checkbox, Form, Input, Popover } from "antd";
 import { checkSignup, addUser } from "@/actions/auth/checkSignup";
 import Swal from "sweetalert2";
 import { SignupType } from "@/types/antd";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
 const img_url_default = "./images/hero.png";
 // "https://i.pinimg.com/originals/11/d2/27/11d2272b9a2185b9b8e786050f8e6b67.jpg";
@@ -49,6 +50,7 @@ const Signup = ({ cb }: { cb: () => void }) => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="on"
+          size="large"
         >
           <h2 className="text-3xl font-bold">Đăng ký</h2>
           <p className="font-bold text-gray-500 py-2 mb-3 border-b-2">
@@ -59,13 +61,13 @@ const Signup = ({ cb }: { cb: () => void }) => {
               name="name"
               rules={[{ required: true, message: "Please input your name!" }]}
             >
-              <Input size="large" placeholder="Full name" />
+              <Input placeholder="Full name" />
             </Form.Item>
             <Form.Item<SignupType>
               name="email"
               rules={[{ required: true, message: "Please input your email!" }]}
             >
-              <Input size="large" placeholder="demo@gmail.com" type="email" />
+              <Input placeholder="demo@gmail.com" type="email" />
             </Form.Item>
           </div>
           <Popover
@@ -80,32 +82,33 @@ const Signup = ({ cb }: { cb: () => void }) => {
                 { required: true, message: "Please input your avatar URL!" },
               ]}
             >
-              <Input size="large" placeholder="image avatar url" />
+              <Input prefix="" placeholder="https://" />
             </Form.Item>
           </Popover>
           <Form.Item<SignupType>
             name="username"
             rules={[{ required: true, message: "Please input your username!" }]}
           >
-            <Input size="large" placeholder="Username" />
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Username"
+            />
           </Form.Item>
           <Form.Item<SignupType>
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <Input.Password size="large" placeholder="Password" />
+            <Input.Password
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              placeholder="Password"
+            />
           </Form.Item>
           <Form.Item<SignupType> name="remember" valuePropName="checked">
             <Checkbox>Tôi đồng ý với điều khoản sử dụng</Checkbox>
           </Form.Item>
           <Form.Item>
             <div className="flex justify-center">
-              <Button
-                className="w-3/4"
-                size="large"
-                type="primary"
-                htmlType="submit"
-              >
+              <Button className="w-3/4" type="primary" htmlType="submit">
                 Signin
               </Button>
             </div>

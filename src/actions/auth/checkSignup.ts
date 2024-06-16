@@ -1,7 +1,7 @@
 "use server";
 import { baseURL } from "@/constant/constant";
 import { SignupType } from "@/types/antd";
-import newID from "@/utils/newId";
+import { newID } from "@/utils/id";
 import axios from "axios";
 
 export const checkSignup = async (
