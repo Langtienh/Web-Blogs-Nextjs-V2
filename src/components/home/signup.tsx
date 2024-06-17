@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import { SignupType } from "@/types/antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
-const img_url_default = "./images/hero.png";
+const img_url_default = "/images/hero.png";
 // "https://i.pinimg.com/originals/11/d2/27/11d2272b9a2185b9b8e786050f8e6b67.jpg";
 
 const Signup = ({ cb }: { cb: () => void }) => {

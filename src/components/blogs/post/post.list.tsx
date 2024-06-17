@@ -9,8 +9,9 @@ interface IProps2 {
   data: IPost[];
   items: number;
   pageActive: number;
+  LimitItem: number;
 }
-const PostsList = ({ data, items, pageActive }: IProps2) => {
+const PostsList = ({ data, items, pageActive, LimitItem }: IProps2) => {
   const { replace } = useRouter();
   const patchName = usePathname();
   const searchParams = useSearchParams();
@@ -39,6 +40,7 @@ const PostsList = ({ data, items, pageActive }: IProps2) => {
             current={pageActive}
             onChange={onChange}
             total={items}
+            defaultPageSize={Math.floor(items / LimitItem + 1)}
             showSizeChanger={false}
           />
         </div>

@@ -15,13 +15,13 @@ import { useSelector } from "react-redux";
 import useSWR, { mutate } from "swr";
 
 const CreatePost = () => {
+  const auth: IUser = useSelector((state: IStore) => state.user);
   // không hiểu sao thêm được dòng này lại fix được bug sử dụng mutata ở đây nhưng không revaliudate page blogs
   const { data } = useSWR(
     `${baseURL}posts?_page=1&_per_page=10&_sort=-id`,
     fetcher
   );
   // page chỉ dùng cho người đã đăng nhập
-  const auth: IUser = useSelector((state: IStore) => state.user);
   const isLogin: boolean = useSelector((state: IStore) => state.isLogin);
   // thêm modal chuyển trang xem bài viết hoặc ở lại trang
   const router = useRouter();
@@ -52,6 +52,7 @@ const CreatePost = () => {
       try {
         const res = await axios.post(`${baseURL}posts`, post);
         await mutate(`${baseURL}posts?_page=1&_per_page=10&_sort=-id`);
+        `${baseURL}posts?userId=${auth.id}&_page=1&_per_page=3&_sort=-id`;
       } finally {
         setIsPostding(false);
       }

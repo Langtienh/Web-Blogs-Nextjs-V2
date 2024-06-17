@@ -10,9 +10,18 @@ import { CommentOutlined } from "@ant-design/icons";
 import LikeCounter from "@/components/blogs/post/like.counter";
 import ShareCounter from "@/components/blogs/post/share.counter";
 import LikeAction from "@/components/blogs/post/like.btn";
-import ShareAction from "./share.btn";
+import ShareAction from "@/components/blogs/post/share.btn";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { IStore } from "@/types/redux";
 
 const Post = ({ post }: { post: IPost }) => {
+  const isLogin = useSelector((state: IStore) => state.isLogin);
+  const router = useRouter();
+  const handleComment = () => {
+    if (isLogin) router.push(`/blogs/${post.id}`);
+    else router.push("/");
+  };
   return (
     <div className="pt-3 pb-2 bg-white rounded-md">
       {post ? (
@@ -43,7 +52,12 @@ const Post = ({ post }: { post: IPost }) => {
           </div>
           <div className="mx-3 flex justify-between items-center text-xl border-y py-2">
             <LikeAction postId={post.id} />
-            <Button size="large" type="text" icon={<CommentOutlined />}>
+            <Button
+              onClick={handleComment}
+              size="large"
+              type="text"
+              icon={<CommentOutlined />}
+            >
               Comment
             </Button>
             <ShareAction postId={post.id} />

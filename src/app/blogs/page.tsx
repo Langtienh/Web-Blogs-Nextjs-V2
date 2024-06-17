@@ -27,7 +27,12 @@ const Blogs = (props: any) => {
       </div>
     );
   return (
-    <PostsList data={data.data} pageActive={pageActive} items={data.items} />
+    <PostsList
+      data={data.data}
+      pageActive={pageActive}
+      items={data.items}
+      LimitItem={LimitItem}
+    />
   );
 };
 
