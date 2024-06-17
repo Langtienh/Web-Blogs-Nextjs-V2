@@ -1,14 +1,50 @@
-## Getting Started
+# Getting Started
 
-First, install package
+Sau khi clone cần cài đặt các package cần thiết
 
 ```bash
 npm i
 ```
 
-## Getting Demo
+Nếu bị lỗi cập nhật hoặc cài đặt nodejs mới nhất và chạy lại bash trên
 
-next run the development server:
+# Getting Demo
+
+Chạy chế độ product (trải nghiệm thực tế)
+
+- trước tiên phải build src thành product
+  (quá trình này chạy khá lâu nhưng chỉ cần 1 lần)
+
+```bash
+npm run build
+```
+
+- sử dụng (sau khi chạy lệnh bash chờ khoảng 5s để khởi động server)
+
+```bash
+npm run product
+```
+
+- mở link [`http://localhost:3000`] để sử dụng
+
+# Chức các chức năng
+
+- Đăng ký. Đăng nhập
+- Viết bài
+- Xem bài viết
+- lưu trữ bài viết của mình
+- Comment trong bài viết
+- Follow users khác
+- Vote up/vote down bài viết (like share)
+
+# Công nghệ chính
+
+- React(NextJs framework), redux, swr
+- Antd, tailwind-CSS,
+
+# development
+
+Chạy chế độ development server (sẽ load các trang lần đầu lâu):
 
 ```bash
 npm run dev
