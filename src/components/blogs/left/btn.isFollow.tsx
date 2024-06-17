@@ -10,11 +10,12 @@ import { IStore } from "@/types/redux";
 import { useRouter } from "next/navigation";
 import { subID } from "@/utils/id";
 import { useState } from "react";
+import { IUser } from "@/types/backend";
 
 export default function IsFollow({ followId }: { followId: string }) {
   const postId = subID(followId);
   const isLogin = useSelector((state: IStore) => state.isLogin);
-  const auth = useSelector((state: IStore) => state.user);
+  const auth: IUser = useSelector((state: IStore) => state.user);
   const router = useRouter();
   const [disabled, setDisabled] = useState<boolean>(false);
   const handleFollow = async () => {
@@ -31,7 +32,7 @@ export default function IsFollow({ followId }: { followId: string }) {
       } catch {
         mutate(`${baseURL}follows/${followId}`, false);
       } finally {
-        mutate(`${baseURL}follows/${followId}`);
+        await mutate(`${baseURL}follows/${followId}`);
         setDisabled(false);
       }
     } else router.push("/");
@@ -46,7 +47,7 @@ export default function IsFollow({ followId }: { followId: string }) {
       } catch {
         mutate(`${baseURL}follows/${followId}`, true);
       } finally {
-        mutate(`${baseURL}follows/${followId}`);
+        await mutate(`${baseURL}follows/${followId}`);
         setDisabled(false);
       }
     } else router.push("/");

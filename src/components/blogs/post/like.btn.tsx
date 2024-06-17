@@ -30,7 +30,7 @@ export default function LikeAction({ postId }: { postId: string }) {
       } catch {
         mutate(`${baseURL}likeds/${likedId}`, false);
       } finally {
-        mutate(`${baseURL}likeds/${likedId}`);
+        await mutate(`${baseURL}likeds/${likedId}`);
         setDisabled(false);
       }
     } else router.push("/");
@@ -45,7 +45,7 @@ export default function LikeAction({ postId }: { postId: string }) {
       } catch {
         mutate(`${baseURL}likeds/${likedId}`, true);
       } finally {
-        mutate(`${baseURL}likeds/${likedId}`);
+        await mutate(`${baseURL}likeds/${likedId}`);
         setDisabled(false);
       }
     } else router.push("/");

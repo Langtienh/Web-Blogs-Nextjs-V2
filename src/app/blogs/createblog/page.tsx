@@ -1,22 +1,40 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { createPost } from "@/actions/listpost/createPost";
 import IsNotLogin from "@/components/isNotLogin";
-import { baseURL } from "@/constant/constant";
+import { baseURL, fetcher } from "@/constant/constant";
 import { initialPost } from "@/initial/backend";
 import { IPost, IUser } from "@/types/backend";
 import { IStore } from "@/types/redux";
 import { newID } from "@/utils/id";
-import { Button, Form, Input, Spin } from "antd";
+import { Button, Form, Input, Modal, Result, Spin } from "antd";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { mutate } from "swr";
+import useSWR, { mutate } from "swr";
 
 const CreatePost = () => {
+  // không hiểu sao thêm được dòng này lại fix được bug sử dụng mutata ở đây nhưng không revaliudate page blogs
+  const { data } = useSWR(
+    `${baseURL}posts?_page=1&_per_page=10&_sort=-id`,
+    fetcher
+  );
   // page chỉ dùng cho người đã đăng nhập
   const auth: IUser = useSelector((state: IStore) => state.user);
   const isLogin: boolean = useSelector((state: IStore) => state.isLogin);
+  // thêm modal chuyển trang xem bài viết hoặc ở lại trang
+  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+    router.push("/blogs");
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   // phải điền đủ form mới được gửi
   const [canCreate, setCanCreate] = useState<boolean>(false);
   const [form] = Form.useForm();
@@ -32,14 +50,15 @@ const CreatePost = () => {
       // loading post api
       setIsPostding(true);
       try {
-        const res = await createPost(post);
-        mutate(`${baseURL}posts?_page=1&_per_page=10&_sort=-id`);
+        const res = await axios.post(`${baseURL}posts`, post);
+        await mutate(`${baseURL}posts?_page=1&_per_page=10&_sort=-id`);
       } finally {
         setIsPostding(false);
       }
     };
     postData();
     form.resetFields();
+    setIsModalOpen(true);
   };
   const onValuesChange = (_: any, values: IPost) => {
     setCanCreate(!!(values.title && values.img_url && values.body));
@@ -47,6 +66,21 @@ const CreatePost = () => {
   if (isLogin)
     return (
       <Spin spinning={isPostding}>
+        <Modal title="Basic Modal" open={isModalOpen} footer={null}>
+          <Result
+            status="success"
+            title="Tạo bài viết thành công"
+            subTitle="Xem bài viết?"
+            extra={[
+              <Button onClick={handleOk} type="primary" key="console">
+                Go
+              </Button>,
+              <Button onClick={handleCancel} key="buy">
+                Ở lại
+              </Button>,
+            ]}
+          />
+        </Modal>
         <div className="bg-white rounded-md py-3 px-2">
           <div className="flex gap-3 items-center">
             <img
