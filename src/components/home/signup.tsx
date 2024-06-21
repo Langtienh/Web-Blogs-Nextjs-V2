@@ -109,7 +109,7 @@ const Signup = ({ cb }: { cb: () => void }) => {
           <Form.Item>
             <div className="flex justify-center">
               <Button className="w-3/4" type="primary" htmlType="submit">
-                Signin
+                SignUp
               </Button>
             </div>
           </Form.Item>
