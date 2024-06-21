@@ -1,10 +1,16 @@
 "use client";
-import { IStore } from "@/types/redux";
-import { useSelector } from "react-redux";
 import IsNotLogin from "@/components/isNotLogin";
 import UserList from "@/components/blogs/left/isLogin";
+import { IUser } from "@/types/backend";
+import { isClient } from "@/utils/isClient";
 const FolowsList = () => {
-  const isLogin = useSelector((state: IStore) => state.isLogin);
+  let auth: IUser | null = null;
+  let isLogin = false;
+  if (isClient()) {
+    const _auth = localStorage.getItem("auth");
+    auth = _auth ? JSON.parse(_auth) : null;
+    isLogin = !!auth;
+  }
   if (isLogin) return <UserList />;
   return <IsNotLogin />;
 };

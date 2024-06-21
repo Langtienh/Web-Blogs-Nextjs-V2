@@ -1,19 +1,24 @@
 "use client";
 
 import { baseURL, fetcherCheck, swrconfig } from "@/constant/constant";
-import { IStore } from "@/types/redux";
+import { IUser } from "@/types/backend";
+import { isClient } from "@/utils/isClient";
 import { Button, Spin } from "antd";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
-import { useSelector } from "react-redux";
 import useSWR, { mutate } from "swr";
 
 export default function LikeAction({ postId }: { postId: string }) {
-  const auth = useSelector((state: IStore) => state.user);
-  const isLogin = useSelector((state: IStore) => state.isLogin);
-  const likedId = `${postId}x${auth.id}`;
+  let auth: IUser | null = null;
+  let isLogin = false;
+  if (isClient()) {
+    const _auth = localStorage.getItem("auth");
+    auth = _auth ? JSON.parse(_auth) : null;
+    isLogin = !!auth;
+  }
+  const likedId = `${postId}x${auth?.id}`;
   const router = useRouter();
   const [disable, setDisabled] = useState<boolean>(false);
   const handleLike = async () => {
@@ -24,7 +29,7 @@ export default function LikeAction({ postId }: { postId: string }) {
         const res = await axios.post(`${baseURL}likeds`, {
           id: likedId,
           postId,
-          userId: auth.id,
+          userId: auth?.id,
         });
         mutate(`${baseURL}likeds?postId=${postId}`);
       } catch {

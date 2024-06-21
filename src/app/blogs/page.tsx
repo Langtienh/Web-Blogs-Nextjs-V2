@@ -3,7 +3,7 @@ import PostsList from "@/components/blogs/post/post.list";
 import { baseURL, fetcher, swrconfig } from "@/constant/constant";
 import { IPost } from "@/types/backend";
 import { Spin } from "antd";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 
 const Blogs = (props: any) => {
   const LimitItem = 10;
@@ -19,6 +19,10 @@ const Blogs = (props: any) => {
     `${baseURL}posts?_page=${pageActive}&_per_page=${LimitItem}&_sort=-id`,
     fetcher,
     swrconfig
+  );
+  // load data nextpage
+  mutate(
+    `${baseURL}posts?_page=${pageActive + 1}&_per_page=${LimitItem}&_sort=-id`
   );
   if (!data)
     return (

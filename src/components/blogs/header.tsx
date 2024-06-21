@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { LOGOUT } from "@/redux/actions/loginActions";
-import { IStore } from "@/types/redux";
+import { IUser } from "@/types/backend";
+import { isClient } from "@/utils/isClient";
 import { Button, Popover } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -18,15 +18,18 @@ import {
   FaVideo,
 } from "react-icons/fa";
 import { MdMenu } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
-  const user = useSelector((state: IStore) => state.user);
-  const isLogin = useSelector((state: IStore) => state.isLogin);
+  let auth: IUser | null = null;
+  let isLogin = false;
+  if (isClient()) {
+    const _auth = localStorage.getItem("auth");
+    auth = _auth ? JSON.parse(_auth) : null;
+    isLogin = !!auth;
+  }
   const router = useRouter();
-  const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(LOGOUT());
+    if (isClient()) localStorage.removeItem("auth");
     router.push("/");
   };
   return (
@@ -97,7 +100,7 @@ const Header = () => {
             {isLogin ? (
               <img
                 className="w-11 h-11 rounded-full"
-                src={user?.img_url}
+                src={auth?.img_url}
                 alt="avatar"
               />
             ) : (

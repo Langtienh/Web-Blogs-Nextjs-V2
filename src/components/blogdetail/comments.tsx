@@ -1,18 +1,21 @@
 "use client";
 
 import { baseURL, fetcher, swrconfig } from "@/constant/constant";
-import { IComment } from "@/types/backend";
+import { IComment, IUser } from "@/types/backend";
 import { Button, Form, Input, Spin } from "antd";
 import useSWR, { mutate } from "swr";
 import UserItem from "@/components/blogs/user.item";
 import { useState } from "react";
 import axios from "axios";
 import { newID } from "@/utils/id";
-import { useSelector } from "react-redux";
-import { IStore } from "@/types/redux";
+import { isClient } from "@/utils/isClient";
 
 export default function Comments({ postId }: { postId: string }) {
-  const auth = useSelector((state: IStore) => state.user);
+  let auth: IUser | null = null;
+  if (isClient()) {
+    const _auth = localStorage.getItem("auth");
+    auth = _auth ? JSON.parse(_auth) : null;
+  }
   const [content, setContent] = useState<string>("");
   const [loadding, setLoadding] = useState<boolean>(false);
 
@@ -38,7 +41,7 @@ export default function Comments({ postId }: { postId: string }) {
     let newComment = {
       id: newID(),
       postId,
-      userId: auth.id,
+      userId: auth?.id,
       body: content,
     };
     mutate(`${baseURL}comments?postId=${postId}&_sort=-id`, [

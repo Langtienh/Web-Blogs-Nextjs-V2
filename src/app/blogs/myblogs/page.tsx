@@ -1,14 +1,18 @@
 "use client";
 import PostsList from "@/components/blogs/post/post.list";
 import { baseURL, fetcher, swrconfig } from "@/constant/constant";
-import { IPost } from "@/types/backend";
+import { IPost, IUser } from "@/types/backend";
 import { IStore } from "@/types/redux";
+import { isClient } from "@/utils/isClient";
 import { Spin } from "antd";
-import { useSelector } from "react-redux";
 import useSWR from "swr";
 
 const Blogs = (props: any) => {
-  const auth = useSelector((state: IStore) => state.user);
+  let auth: IUser | null = null;
+  if (isClient()) {
+    const _auth = localStorage.getItem("auth");
+    auth = _auth ? JSON.parse(_auth) : null;
+  }
   const LimitItem = 3;
   const pageActive = props?.searchParams?.page ?? 1;
   const {
@@ -19,7 +23,7 @@ const Blogs = (props: any) => {
       items: number;
     };
   } = useSWR(
-    `${baseURL}posts?userId=${auth.id}&_page=${pageActive}&_per_page=${LimitItem}&_sort=-id`,
+    `${baseURL}posts?userId=${auth?.id}&_page=${pageActive}&_per_page=${LimitItem}&_sort=-id`,
     fetcher,
     { ...swrconfig, revalidateIfStale: true }
   );

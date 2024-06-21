@@ -15,7 +15,6 @@ const PostsList = ({ data, items, pageActive, LimitItem }: IProps2) => {
   const { replace } = useRouter();
   const patchName = usePathname();
   const searchParams = useSearchParams();
-
   const onChange = (page: number) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", page.toString());

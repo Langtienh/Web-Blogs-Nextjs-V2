@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { IPost } from "@/types/backend";
+import { IPost, IUser } from "@/types/backend";
 import { Button, Spin } from "antd";
 import UserItem from "@/components/blogs/user.item";
 import { FaHeart, FaLaughSquint, FaShare } from "react-icons/fa";
@@ -12,11 +12,16 @@ import ShareCounter from "@/components/blogs/post/share.counter";
 import LikeAction from "@/components/blogs/post/like.btn";
 import ShareAction from "@/components/blogs/post/share.btn";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import { IStore } from "@/types/redux";
+import { isClient } from "@/utils/isClient";
 
 const Post = ({ post }: { post: IPost }) => {
-  const isLogin = useSelector((state: IStore) => state.isLogin);
+  let auth: IUser | null = null;
+  let isLogin = false;
+  if (isClient()) {
+    const _auth = localStorage.getItem("auth");
+    auth = _auth ? JSON.parse(_auth) : null;
+    isLogin = !!auth;
+  }
   const router = useRouter();
   const handleComment = () => {
     if (isLogin) router.push(`/blogs/${post.id}`);
@@ -72,13 +77,3 @@ const Post = ({ post }: { post: IPost }) => {
   );
 };
 export default Post;
-
-{
-  /*
-
-        
-      
-      
-      
-        */
-}

@@ -1,18 +1,22 @@
 "use client";
 
 import { baseURL, fetcher } from "@/constant/constant";
-import { IStore } from "@/types/redux";
 import { Empty, Spin } from "antd";
-import { useSelector } from "react-redux";
 import useSWR from "swr";
 import UserItem from "@/components/blogs/user.item";
 import { subID } from "@/utils/id";
+import { isClient } from "@/utils/isClient";
+import { IUser } from "@/types/backend";
 
 export default function UserList() {
-  const auth = useSelector((state: IStore) => state.user);
+  let auth: IUser | null = null;
+  if (isClient()) {
+    const _auth = localStorage.getItem("auth");
+    auth = _auth ? JSON.parse(_auth) : null;
+  }
 
   const { data }: { data: { id: string }[] } = useSWR(
-    `${baseURL}follows?userId=${auth.id}`,
+    `${baseURL}follows?userId=${auth?.id}`,
     fetcher
   );
   if (!data)

@@ -5,24 +5,28 @@ import IsNotLogin from "@/components/isNotLogin";
 import { baseURL, fetcher } from "@/constant/constant";
 import { initialPost } from "@/initial/backend";
 import { IPost, IUser } from "@/types/backend";
-import { IStore } from "@/types/redux";
 import { newID } from "@/utils/id";
+import { isClient } from "@/utils/isClient";
 import { Button, Form, Input, Modal, Result, Spin } from "antd";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import useSWR, { mutate } from "swr";
 
 const CreatePost = () => {
-  const auth: IUser = useSelector((state: IStore) => state.user);
-  // không hiểu sao thêm được dòng này lại fix được bug sử dụng mutata ở đây nhưng không revaliudate page blogs
+  let auth: IUser | null = null;
+  let isLogin = false;
+  if (isClient()) {
+    const _auth = localStorage.getItem("auth");
+    auth = _auth ? JSON.parse(_auth) : null;
+    isLogin = !!auth;
+  }
+  // mutate để chuyển về trang chủ được cập nhật dữ liệu
   const { data } = useSWR(
     `${baseURL}posts?_page=1&_per_page=10&_sort=-id`,
     fetcher
   );
   // page chỉ dùng cho người đã đăng nhập
-  const isLogin: boolean = useSelector((state: IStore) => state.isLogin);
   // thêm modal chuyển trang xem bài viết hoặc ở lại trang
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +48,7 @@ const CreatePost = () => {
       ...initialPost,
       ...value,
       id: newID(),
-      userId: auth.id,
+      userId: auth?.id,
     };
     const postData = async () => {
       // loading post api
@@ -52,7 +56,7 @@ const CreatePost = () => {
       try {
         const res = await axios.post(`${baseURL}posts`, post);
         await mutate(`${baseURL}posts?_page=1&_per_page=10&_sort=-id`);
-        `${baseURL}posts?userId=${auth.id}&_page=1&_per_page=3&_sort=-id`;
+        `${baseURL}posts?userId=${auth?.id}&_page=1&_per_page=3&_sort=-id`;
       } finally {
         setIsPostding(false);
       }
@@ -73,10 +77,15 @@ const CreatePost = () => {
             title="Tạo bài viết thành công"
             subTitle="Xem bài viết?"
             extra={[
-              <Button onClick={handleOk} type="primary" key="console">
+              <Button
+                size="large"
+                onClick={handleOk}
+                type="primary"
+                key="console"
+              >
                 Go
               </Button>,
-              <Button onClick={handleCancel} key="buy">
+              <Button size="large" onClick={handleCancel} key="buy">
                 Ở lại
               </Button>,
             ]}

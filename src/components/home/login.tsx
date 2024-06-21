@@ -1,28 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+// import { isClient } from 'next/dynamic';
+
 import React from "react";
 import type { FormProps } from "antd";
 import { Button, Checkbox, Form, Input } from "antd";
 import { LoginType } from "@/types/antd";
 import { checkLogin, getUser } from "@/actions/auth/checkLogin";
 import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
-import { LOGIN } from "@/redux/actions/loginActions";
 import { useRouter } from "next/navigation";
 import { IoMdAddCircle } from "react-icons/io";
 import axios from "axios";
 import { baseURL } from "@/constant/constant";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { isClient } from "@/utils/isClient";
 
 const Login = ({ cb }: { cb: () => void }) => {
-  const dispatch = useDispatch();
   const router = useRouter();
   const onFinish: FormProps<LoginType>["onFinish"] = async (values) => {
     const res = await checkLogin(values.username, values.password);
     if (res) {
       const data = await getUser(values.username);
-      dispatch(LOGIN(data[0]));
+      if (isClient()) localStorage.setItem("auth", JSON.stringify(data[0]));
       Swal.fire({
         icon: "success",
         title: "Go to home after 3 seconds",
@@ -50,7 +50,8 @@ const Login = ({ cb }: { cb: () => void }) => {
   const demo = async () => {
     const res = await axios.get(`${baseURL}users/1718464000001`);
     const demoUser = res.data;
-    dispatch(LOGIN(demoUser));
+
+    if (isClient()) localStorage.setItem("auth", JSON.stringify(demoUser));
     Swal.fire({
       icon: "success",
       title: "Go to home after 3 seconds",

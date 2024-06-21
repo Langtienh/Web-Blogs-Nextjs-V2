@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
-import ReduxProvider from "@/redux/ReduxProvider";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 export const metadata: Metadata = {
@@ -19,9 +18,7 @@ export default function RootLayout({
         <link rel="icon" href="./images/webicon/blogs.ico" />
       </head>
       <body className="bg-[#f0f2f5]">
-        <AntdRegistry>
-          <ReduxProvider>{children}</ReduxProvider>
-        </AntdRegistry>
+        <AntdRegistry>{children}</AntdRegistry>
       </body>
     </html>
   );

@@ -6,7 +6,11 @@ Sau khi clone cần cài đặt các package cần thiết
 npm i
 ```
 
-Nếu bị lỗi cập nhật hoặc cài đặt nodejs mới nhất và chạy lại bash trên
+Nếu bị lỗi cập nhật hoặc cài đặt nodejs mới nhất và chạy
+
+```bash
+npm i --legacy-peer-deps
+```
 
 # Getting Demo
 
@@ -39,7 +43,7 @@ npm run product
 
 # Công nghệ chính
 
-- React(NextJs framework), redux, swr
+- NextJs, swr
 - Antd, tailwind-CSS,
 
 # development

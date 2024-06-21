@@ -5,17 +5,21 @@ import { baseURL, fetcherCheck, swrconfig } from "@/constant/constant";
 import { Button, Spin, Tooltip } from "antd";
 import useSWR, { mutate } from "swr";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { IStore } from "@/types/redux";
 import { useRouter } from "next/navigation";
 import { subID } from "@/utils/id";
 import { useState } from "react";
 import { IUser } from "@/types/backend";
+import { isClient } from "@/utils/isClient";
 
 export default function IsFollow({ followId }: { followId: string }) {
   const postId = subID(followId);
-  const isLogin = useSelector((state: IStore) => state.isLogin);
-  const auth: IUser = useSelector((state: IStore) => state.user);
+  let auth: IUser | null = null;
+  let isLogin = false;
+  if (isClient()) {
+    const _auth = localStorage.getItem("auth");
+    auth = _auth ? JSON.parse(_auth) : null;
+    isLogin = !!auth;
+  }
   const router = useRouter();
   const [disabled, setDisabled] = useState<boolean>(false);
   const handleFollow = async () => {
@@ -25,10 +29,10 @@ export default function IsFollow({ followId }: { followId: string }) {
       try {
         const res = await axios.post(`${baseURL}follows`, {
           id: followId,
-          userId: auth.id,
+          userId: auth?.id,
           postId,
         });
-        mutate(`${baseURL}follows?userId=${auth.id}`);
+        mutate(`${baseURL}follows?userId=${auth?.id}`);
       } catch {
         mutate(`${baseURL}follows/${followId}`, false);
       } finally {
@@ -43,7 +47,7 @@ export default function IsFollow({ followId }: { followId: string }) {
       mutate(`${baseURL}follows/${followId}`, false);
       try {
         const res = await axios.delete(`${baseURL}follows/${followId}`);
-        mutate(`${baseURL}follows?userId=${auth.id}`);
+        mutate(`${baseURL}follows?userId=${auth?.id}`);
       } catch {
         mutate(`${baseURL}follows/${followId}`, true);
       } finally {
