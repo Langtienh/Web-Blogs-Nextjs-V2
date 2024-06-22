@@ -24,7 +24,7 @@ const Post = ({ post }: { post: IPost }) => {
   }
   const router = useRouter();
   const handleComment = () => {
-    if (isLogin) router.push(`/blogs/${post.id}`);
+    if (isLogin) router.push(`/blogs/detail/${post.id}`);
     else router.push("/");
   };
   return (

@@ -1,31 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { CreatePostAction } from "@/actions/createPost";
 import IsNotLogin from "@/components/isNotLogin";
-import { baseURL, fetcher } from "@/constant/constant";
-import { initialPost } from "@/initial/backend";
+import { initialPost, initialUser } from "@/initial/backend";
 import { IPost, IUser } from "@/types/backend";
 import { newID } from "@/utils/id";
 import { isClient } from "@/utils/isClient";
 import { Button, Form, Input, Modal, Result, Spin } from "antd";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import useSWR, { mutate } from "swr";
 
 const CreatePost = () => {
-  let auth: IUser | null = null;
+  let auth: IUser = initialUser;
   let isLogin = false;
   if (isClient()) {
     const _auth = localStorage.getItem("auth");
-    auth = _auth ? JSON.parse(_auth) : null;
+    auth = _auth ? JSON.parse(_auth) : initialUser;
     isLogin = !!auth;
   }
-  // mutate để chuyển về trang chủ được cập nhật dữ liệu
-  const { data } = useSWR(
-    `${baseURL}posts?_page=1&_per_page=10&_sort=-id`,
-    fetcher
-  );
   // page chỉ dùng cho người đã đăng nhập
   // thêm modal chuyển trang xem bài viết hoặc ở lại trang
   const router = useRouter();
@@ -48,22 +41,22 @@ const CreatePost = () => {
       ...initialPost,
       ...value,
       id: newID(),
-      userId: auth?.id,
+      userId: auth?.id ?? "",
     };
     const postData = async () => {
       // loading post api
       setIsPostding(true);
       try {
-        const res = await axios.post(`${baseURL}posts`, post);
-        await mutate(`${baseURL}posts?_page=1&_per_page=10&_sort=-id`);
-        `${baseURL}posts?userId=${auth?.id}&_page=1&_per_page=3&_sort=-id`;
+        await CreatePostAction(post, auth);
       } finally {
         setIsPostding(false);
+        form.resetFields();
+        router.push("/blogs");
+
+        // setIsModalOpen(true);
       }
     };
     postData();
-    form.resetFields();
-    setIsModalOpen(true);
   };
   const onValuesChange = (_: any, values: IPost) => {
     setCanCreate(!!(values.title && values.img_url && values.body));

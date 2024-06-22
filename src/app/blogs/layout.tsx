@@ -3,7 +3,7 @@ import Header from "@/components/blogs/header";
 import FolowsList from "@/components/blogs/left/user.list";
 import LikeShareList from "@/components/blogs/right";
 import { Suspense } from "react";
-import Loading from "@/app/loading";
+import PostSkeleton from "@/components/post.skeleton";
 
 export const metadata: Metadata = {
   title: "Blogger ❤️ NextJs",
@@ -16,26 +16,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Suspense fallback={<Loading />}>
-      <main>
-        <Header />
-        <div className="flex">
-          <div className="left-0 fixed top-0 bottom-0 w-[280px] hidden left:block overflow-y-auto">
-            <div className="h-14"></div>
-            <FolowsList />
-          </div>
-          <div className="w-[280px] hidden left:block"></div>
-          <div className="flex-1">
-            <div className="h-14"></div>
-            <div className="w-full max-w-[516px] mx-auto pt-5">{children}</div>
-          </div>
-          <div className="w-[280px] hidden right:block"></div>
-          <div className="right-0 fixed top-0 bottom-0 w-[280px] hidden right:block overflow-y-auto">
-            <div className="h-14"></div>
-            <LikeShareList />
+    <main>
+      <Header />
+      <div className="flex">
+        <div className="left-0 fixed top-0 bottom-0 w-[280px] hidden left:block overflow-y-auto">
+          <div className="h-14"></div>
+          <FolowsList />
+        </div>
+        <div className="w-[280px] hidden left:block"></div>
+        <div className="flex-1">
+          <div className="h-14"></div>
+          <div className="w-full max-w-[516px] mx-auto pt-5">
+            <Suspense fallback={<PostSkeleton />}>{children}</Suspense>
           </div>
         </div>
-      </main>
-    </Suspense>
+        <div className="w-[280px] hidden right:block"></div>
+        <div className="right-0 fixed top-0 bottom-0 w-[280px] hidden right:block overflow-y-auto">
+          <div className="h-14"></div>
+          <LikeShareList />
+        </div>
+      </div>
+    </main>
   );
 }

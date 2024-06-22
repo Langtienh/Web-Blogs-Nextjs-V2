@@ -5,10 +5,11 @@ import { baseURL, fetcher, swrconfig } from "@/constant/constant";
 import { IUser } from "@/types/backend";
 import useSWR from "swr";
 import { BsThreeDots } from "react-icons/bs";
-import { Spin } from "antd";
+import { Popover, Spin } from "antd";
 import IsFollow from "@/components/blogs/left/btn.isFollow";
 import { mergeID } from "@/utils/id";
 import { isClient } from "@/utils/isClient";
+import Link from "next/link";
 
 const UserItem = ({ userId, dot }: { userId: string; dot?: boolean }) => {
   let auth: IUser | null = null;
@@ -33,7 +34,16 @@ const UserItem = ({ userId, dot }: { userId: string; dot?: boolean }) => {
       <img className="h-9 w-9 rounded-full" src={data.img_url} alt="avatar" />
       <div className="font-bold">
         <div className="flex gap-2">
-          <h2 className="text-[15px]">{data.username}</h2>
+          <Link href={`/blogs/${userId}`}>
+            <Popover
+              placement="bottom"
+              content={
+                <p className="text-red-500 font-bold">Xem trang cá nhân</p>
+              }
+            >
+              <h2 className="text-[15px]">{data.username}</h2>
+            </Popover>
+          </Link>
           {isAuth || <IsFollow followId={mergeID(auth?.id ?? "", userId)} />}
         </div>
         <h2 className="text-gray-700 text-[13px]">{data.email}</h2>

@@ -71,7 +71,7 @@ const Header = () => {
           <Popover placement="bottom" content="Nodata">
             <FaVideo size={30} className="hidden" />
           </Popover>
-          <Link href="/blogs/myblogs">
+          <Link href={`/blogs/${auth?.id}`}>
             <Popover
               placement="bottom"
               content={<p className="text-red-500 font-bold">My Blogs</p>}

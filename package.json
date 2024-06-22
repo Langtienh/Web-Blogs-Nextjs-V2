@@ -8,11 +8,10 @@
     "lint": "next lint",
     "dev": "concurrently \"npm run dev:next\" \"npm run dev:json-server\"",
     "dev:next": "next dev",
-    "dev:json-server": "json-server --watch db.json --port 3001",
-    "p:be": "json-server --watch db.json --port 3001",
-    "p:app": "next start",
+    "be": "json-server --watch db.json --port 3001",
+    "fe": "next start",
     "open:app": "node open-browser.js",
-    "product": "concurrently \"npm run p:be\" \"npm run p:app\" \"npm run open:app\""
+    "product": "concurrently \"npm run be\" \"npm run fe\" \"npm run open:app\""
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",

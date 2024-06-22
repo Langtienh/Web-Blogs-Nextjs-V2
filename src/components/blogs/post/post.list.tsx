@@ -39,7 +39,7 @@ const PostsList = ({ data, items, pageActive, LimitItem }: IProps2) => {
             current={pageActive}
             onChange={onChange}
             total={items}
-            defaultPageSize={Math.floor(items / LimitItem + 1)}
+            defaultPageSize={Math.floor(LimitItem)}
             showSizeChanger={false}
           />
         </div>
